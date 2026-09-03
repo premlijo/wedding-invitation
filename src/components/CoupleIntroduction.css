@@ -1,0 +1,133 @@
+.couple-introduction {
+  background-color: var(--soft-cream);
+  min-height: 90vh;
+}
+
+.couple-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.couple-person {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(16px, 3vh, 32px);
+  text-align: center;
+}
+
+.person-image {
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.person-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.8s ease;
+}
+
+.couple-person:hover .person-image img {
+  transform: scale(1.05);
+}
+
+.person-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.person-name {
+  font-size: clamp(36px, 5vw, 56px);
+  color: var(--deep-charcoal);
+  margin: 0;
+}
+
+.person-relation {
+  font-family: var(--font-sans);
+  font-size: clamp(14px, 1.5vw, 16px);
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted-taupe);
+  margin: 0;
+}
+
+.person-parents {
+  font-family: var(--font-serif);
+  font-size: clamp(16px, 2vw, 20px);
+  font-weight: 400;
+  color: var(--deep-charcoal);
+  margin: 0;
+  opacity: 0.85;
+}
+
+.person-address {
+  font-family: var(--font-sans);
+  font-size: clamp(12px, 1.5vw, 14px);
+  font-weight: 300;
+  color: var(--deep-charcoal);
+  margin: 0;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.couple-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.divider-connector {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 5vw, 64px);
+  font-style: italic;
+  color: var(--antique-gold);
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 968px) {
+  .couple-grid {
+    grid-template-columns: 1fr;
+    gap: clamp(32px, 5vh, 64px);
+  }
+  
+  .couple-divider {
+    order: 2;
+  }
+  
+  .couple-person.groom {
+    order: 1;
+  }
+  
+  .couple-person.bride {
+    order: 3;
+  }
+  
+  .person-image {
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .person-image {
+    max-width: 280px;
+  }
+  
+  .person-name {
+    font-size: clamp(28px, 6vw, 40px);
+  }
+
+  .couple-introduction {
+    padding-top: 1rem;
+  }
+}

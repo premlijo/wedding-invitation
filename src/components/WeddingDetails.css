@@ -1,0 +1,163 @@
+.wedding-details {
+  background-color: var(--warm-ivory);
+  min-height: 80vh;
+}
+
+.details-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--deep-charcoal);
+  text-align: center;
+  margin-bottom: clamp(48px, 8vh, 80px);
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: clamp(32px, 5vh, 64px);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.detail-card {
+  padding: clamp(32px, 5vh, 48px);
+  border: 1px solid var(--muted-taupe);
+  background: var(--soft-white);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 3vh, 32px);
+  transition: all 0.3s ease;
+}
+
+.detail-card:hover {
+  border-color: var(--antique-gold);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.detail-title {
+  font-family: var(--font-serif);
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted-taupe);
+  margin: 0;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--muted-taupe);
+}
+
+.detail-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-day {
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 600;
+  color: var(--deep-charcoal);
+  margin: 0;
+}
+
+.detail-date {
+  font-family: var(--font-sans);
+  font-size: clamp(16px, 2vw, 18px);
+  font-weight: 400;
+  color: var(--deep-charcoal);
+  margin: 0;
+  opacity: 0.85;
+}
+
+.detail-time {
+  font-family: var(--font-sans);
+  font-size: clamp(16px, 2vw, 18px);
+  font-weight: 400;
+  color: var(--deep-charcoal);
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+.detail-venue {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.venue-name {
+  font-family: var(--font-serif);
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 500;
+  color: var(--deep-charcoal);
+  margin: 0;
+}
+
+.wedding-venue-location {
+  font-family: var(--font-sans);
+  font-size: clamp(14px, 1.5vw, 16px);
+  font-weight: 400;
+  color: var(--deep-charcoal);
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+.venue-address {
+  font-family: var(--font-sans);
+  font-size: clamp(14px, 1.5vw, 16px);
+  font-weight: 300;
+  color: var(--deep-charcoal);
+  margin: 0;
+  opacity: 0.75;
+}
+
+.detail-officiant {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--muted-taupe);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.officiant-label {
+  font-family: var(--font-sans);
+  font-size: clamp(12px, 1.5vw, 14px);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-taupe);
+  margin: 0;
+}
+
+.officiant-name {
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 600;
+  font-style: italic;
+  color: #ff0000;
+  margin: 0;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  line-height: 1.3;
+}
+
+.officiant-title {
+  font-family: var(--font-sans);
+  font-size: clamp(12px, 1.5vw, 14px);
+  font-weight: 400;
+  color: black;
+  margin: 0;
+  opacity: 0.75;
+}
+
+@media (max-width: 768px) {
+  .details-grid {
+    grid-template-columns: 1fr;
+    gap: clamp(24px, 4vh, 48px);
+  }
+  
+  .detail-card {
+    padding: clamp(24px, 4vh, 32px);
+  }
+}
