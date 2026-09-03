@@ -1,12 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import seal from '../assets/seal.png';
-// import envelopeClosed from '../assets/envelope_closed.png';
-// import envelopeClosedWithoutCircle from '../assets/envelope_closed_withoutcircle.png';
-// import envelopeTop from '../assets/envelope_top.png';
-// import envelopeBottom from '../assets/envelope_bottom.png';
-// import envelopeLeft from '../assets/envelope_left.png';
-// import envelopeRight from '../assets/envelope_right.png';
+import seal from '../assets/seal.webp';
 
 const InvitationIntro = ({ onOpen, audioRef }) => {
   const [isVisible, setIsVisible] = useState(true);

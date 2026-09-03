@@ -1,7 +1,7 @@
 import christiansong from '../assets/christiansong.mp3';
-import caricatureLijo from '../assets/caricature-lijo.png';
-import caricatureJaisha from '../assets/caricature-jaisha.png';
-import coupleImage from '../assets/wedding.png';
+import caricatureLijo from '../assets/caricature-lijo.webp';
+import caricatureJaisha from '../assets/caricature-jaisha.webp';
+import coupleImage from '../assets/wedding.webp';
 
 export const weddingData = {
   // Couple Information - Groom First

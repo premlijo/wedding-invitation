@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { weddingData } from '../data/weddingData';
-import finalImage from '../assets/final.jpeg';
+import finalImage from '../assets/final.webp';
 
 const FinalSection = () => {
   const ref = useRef(null);
