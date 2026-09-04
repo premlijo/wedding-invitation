@@ -208,7 +208,6 @@
   font-family: var(--font-sans);
   font-size: clamp(12px, 1.5vw, 15px);
   letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: var(--soft-white);
   margin: 0;
   opacity: 0.9;
