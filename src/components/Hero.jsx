@@ -7,15 +7,15 @@ const Hero = () => {
   return (
     <section className="hero" id="home">
       <div className="hero-background">
-        <motion.img
-          src={images.hero}
-          alt="Wedding couple"
-          className="hero-image"
-          loading="eager"
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 2, ease: 'easeOut' }}
-        />
+        <video
+          className="hero-video"
+          autoPlay
+          muted
+          loop
+          playsInline
+        >
+          <source src="/videos/wedding-palace-dance.mp4" type="video/mp4" />
+        </video>
         <div className="hero-overlay" />
       </div>
       
