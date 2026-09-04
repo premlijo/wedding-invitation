@@ -33,8 +33,10 @@ function App() {
   const autoScrollRef = useRef({
     animationFrame: null,
     timeout: null,
+    pauseTimeout: null,
     eventListeners: [],
-    isActive: false
+    isActive: false,
+    isPaused: false
   });
 
   useEffect(() => {
@@ -72,11 +74,16 @@ function App() {
       clearTimeout(ref.timeout);
       ref.timeout = null;
     }
+    if (ref.pauseTimeout) {
+      clearTimeout(ref.pauseTimeout);
+      ref.pauseTimeout = null;
+    }
     ref.eventListeners.forEach(({ element, event, handler }) => {
       element.removeEventListener(event, handler);
     });
     ref.eventListeners = [];
     ref.isActive = false;
+    ref.isPaused = false;
   };
 
   // Scroll to a specific section with ultra-smooth animation
@@ -128,14 +135,20 @@ function App() {
     const finalTargetPosition = finalSection.getBoundingClientRect().top + window.scrollY - getNavigationOffset();
     const startPosition = window.pageYOffset;
     const totalDistance = finalTargetPosition - startPosition;
-    
+
     // Calculate total duration based on total distance for equal speed
     const totalDuration = baseDuration * sections.length;
-    
+
     const startTime = performance.now();
 
     const scrollAnimation = (currentTime) => {
       if (!autoScrollRef.current.isActive) {
+        return;
+      }
+
+      // If paused, don't update scroll position
+      if (autoScrollRef.current.isPaused) {
+        autoScrollRef.current.animationFrame = requestAnimationFrame(scrollAnimation);
         return;
       }
 
@@ -172,10 +185,21 @@ function App() {
     });
   };
 
-  // Handle user interaction to cancel auto-scroll
+  // Handle user interaction to pause auto-scroll temporarily
   const handleUserInteraction = () => {
-    if (autoScrollRef.current.isActive) {
-      stopAutoScroll();
+    if (autoScrollRef.current.isActive && !autoScrollRef.current.isPaused) {
+      autoScrollRef.current.isPaused = true;
+
+      // Clear any existing pause timeout
+      if (autoScrollRef.current.pauseTimeout) {
+        clearTimeout(autoScrollRef.current.pauseTimeout);
+      }
+
+      // Resume after 2 seconds
+      autoScrollRef.current.pauseTimeout = setTimeout(() => {
+        autoScrollRef.current.isPaused = false;
+        autoScrollRef.current.pauseTimeout = null;
+      }, 4000);
     }
   };
 
