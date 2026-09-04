@@ -1,78 +1,60 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const MusicControl = ({ audioRef }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const listenersAttached = useRef(false);
 
-  const togglePlay = () => {
-    if (!audioRef.current) return;
+  const togglePlay = async () => {
+    const audio = audioRef.current;
+    if (!audio) return;
 
-    if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
+    if (audio.paused) {
+      try {
+        await audio.play();
+      } catch (error) {
+        console.error('Audio play failed:', error);
+        setIsPlaying(false);
+      }
     } else {
-      audioRef.current.play().catch((error) => {
-        console.log('Audio play failed:', error);
-      });
-      setIsPlaying(true);
+      audio.pause();
     }
   };
 
-  // Sync playing state with audio element
   useEffect(() => {
-    if (!audioRef.current) return;
-
-    const handlePlay = () => setIsPlaying(true);
-    const handlePause = () => setIsPlaying(false);
-    const handlePlaying = () => setIsPlaying(true);
-
-    audioRef.current.addEventListener('play', handlePlay);
-    audioRef.current.addEventListener('pause', handlePause);
-    audioRef.current.addEventListener('playing', handlePlaying);
-
-    // Initialize state based on current audio state
-    if (!audioRef.current.paused) {
-      setIsPlaying(true);
+    const audio = audioRef.current;
+    if (!audio) {
+      listenersAttached.current = false;
+      return;
     }
 
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.removeEventListener('play', handlePlay);
-        audioRef.current.removeEventListener('pause', handlePause);
-        audioRef.current.removeEventListener('playing', handlePlaying);
-      }
-    };
-  }, [audioRef]);
+    if (listenersAttached.current) return;
 
-  // Show music control after intro completes
+    const syncAudioState = () => {
+      setIsPlaying(!audio.paused);
+    };
+
+    audio.addEventListener('play', syncAudioState);
+    audio.addEventListener('playing', syncAudioState);
+    audio.addEventListener('pause', syncAudioState);
+    audio.addEventListener('ended', syncAudioState);
+
+    syncAudioState();
+    listenersAttached.current = true;
+
+    return () => {
+      audio.removeEventListener('play', syncAudioState);
+      audio.removeEventListener('playing', syncAudioState);
+      audio.removeEventListener('pause', syncAudioState);
+      audio.removeEventListener('ended', syncAudioState);
+      listenersAttached.current = false;
+    };
+  }, [audioRef?.current]);
+
   useEffect(() => {
     setIsVisible(true);
-    
-    // Sync state with audio when becoming visible
-    const syncAudioState = () => {
-      if (audioRef.current && !audioRef.current.paused) {
-        setIsPlaying(true);
-      }
-    };
-    
-    syncAudioState();
-    
-    // Poll audio state for a short time to catch any delayed state changes
-    const pollInterval = setInterval(() => {
-      syncAudioState();
-    }, 100);
-    
-    // Clear polling after 3 seconds
-    const timeout = setTimeout(() => {
-      clearInterval(pollInterval);
-    }, 3000);
-    
-    return () => {
-      clearInterval(pollInterval);
-      clearTimeout(timeout);
-    };
-  }, [audioRef]);
+  }, []);
 
   if (!isVisible) return null;
 
